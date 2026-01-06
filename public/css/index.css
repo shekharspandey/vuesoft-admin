@@ -1,0 +1,78 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
+/* @import url("https://fonts.googleapis.com/css2?family=Poppins:wght@600;700;800;900&display=swap"); */
+
+:root {
+    --primary-color: #465fff;
+    --secondary-color: #3641f5;
+    --heading-color: #dc2f02;
+    --background-color: white;
+}
+
+body {
+    font-family: 'Inter', sans-serif;
+}
+
+.active {
+    font-weight: 500;
+    /* border-bottom-width: 2px; */
+    color: var(--primary-color);
+    border-bottom-color: var(--primary-color);
+}
+
+.dt-layout-row {
+    padding-left: 12px !important;
+    padding-right: 12px !important;
+}
+
+.cp {
+    cursor: pointer;
+}
+
+.transparent {
+    background-color: transparent;
+}
+
+.bg-animation {
+    transition: background-image 1s ease-in;
+}
+
+@keyframes scroll {
+    0% {
+        transform: translateX(0);
+    }
+
+    100% {
+        transform: translateX(-100%);
+    }
+}
+
+.animate-scroll {
+    animation: scroll 30s linear infinite;
+}
+
+.hover\:pause-scroll:hover {
+    animation-play-state: paused;
+}
+
+.scrollbar-hide {
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+}
+
+.scrollbar-hide::-webkit-scrollbar {
+    display: none;
+}
+
+@keyframes slide {
+    0% {
+        transform: translateX(0);
+    }
+
+    100% {
+        transform: translateX(-100%);
+    }
+}
+
+.animate-slide {
+    animation: slide 15s linear infinite;
+}

@@ -1,0 +1,251 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Your custom styles below this line */
+/* Kill browser autofill background (Chrome, Edge, Safari) */
+input:-webkit-autofill,
+input:-webkit-autofill:hover,
+input:-webkit-autofill:focus,
+textarea:-webkit-autofill,
+select:-webkit-autofill {
+  -webkit-text-fill-color: #ffffff !important;
+  box-shadow: 0 0 0px 1000px #111827 inset !important;
+  /* dark bg */
+  transition: background-color 9999s ease-in-out 0s;
+}
+
+/* Light mode */
+body:not(.dark) input:-webkit-autofill {
+  -webkit-text-fill-color: #111827 !important;
+  box-shadow: 0 0 0px 1000px #ffffff inset !important;
+}
+
+/* Torch effect animations */
+@keyframes torchPulse {
+  0% {
+    opacity: 0.4;
+    transform: scale(1);
+  }
+
+  50% {
+    opacity: 0.6;
+    transform: scale(1.05);
+  }
+
+  100% {
+    opacity: 0.4;
+    transform: scale(1);
+  }
+}
+
+@keyframes torchFloat {
+  0% {
+    transform: translateY(0) translateX(0);
+  }
+
+  25% {
+    transform: translateY(-10px) translateX(5px);
+  }
+
+  50% {
+    transform: translateY(0) translateX(10px);
+  }
+
+  75% {
+    transform: translateY(10px) translateX(5px);
+  }
+
+  100% {
+    transform: translateY(0) translateX(0);
+  }
+}
+
+.torch-glow {
+  animation: torchPulse 3s ease-in-out infinite;
+}
+
+.torch-float {
+  animation: torchFloat 8s ease-in-out infinite;
+}
+
+.torch-float-alt {
+  animation: torchFloat 12s ease-in-out infinite reverse;
+}
+
+/* Header styles */
+@keyframes shine {
+  0% {
+    transform: translateX(-100%) skewX(-15deg);
+  }
+
+  100% {
+    transform: translateX(100%) skewX(-15deg);
+  }
+}
+
+.animate-shine {
+  animation: shine 2s ease-in-out infinite;
+}
+
+/* Mobile menu transitions */
+#mobile-menu {
+  max-height: 0;
+  transition: max-height 0.3s ease-in-out;
+}
+
+#mobile-menu.h-auto {
+  max-height: none;
+  overflow-y: visible;
+  padding-bottom: 100px;
+}
+
+/* Mobile dropdown menus */
+.mobile-dropdown-content {
+  max-height: 0;
+  transition: max-height 0.3s ease-in-out;
+  overflow: hidden;
+}
+
+.mobile-dropdown-content.show {
+  max-height: 90vh;
+  overflow-y: auto;
+  display: block !important;
+  padding-bottom: 30px;
+  -webkit-overflow-scrolling: touch;
+  position: relative;
+  z-index: 30;
+}
+
+/* Ensure dropdown content has enough space at the bottom */
+.mobile-dropdown-content.show .p-4:last-child {
+  margin-bottom: 60px;
+}
+
+/* Specifically target the Our Story dropdown */
+#story-dropdown.mobile-dropdown-content.show {
+  max-height: 95vh;
+  overflow-y: auto;
+}
+
+#story-dropdown .space-y-4>a:last-child {
+  margin-bottom: 70px;
+}
+
+.mobile-dropdown-arrow {
+  transition: transform 0.2s ease;
+}
+
+.mobile-dropdown-toggle.active .mobile-dropdown-arrow {
+  transform: rotate(180deg);
+}
+
+/* Custom scrollbar for dropdown content */
+.mobile-dropdown-content {
+  scrollbar-width: thin;
+  scrollbar-color: rgba(203, 213, 225, 0.8) transparent;
+}
+
+.mobile-dropdown-content::-webkit-scrollbar {
+  width: 5px;
+}
+
+.mobile-dropdown-content::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.mobile-dropdown-content::-webkit-scrollbar-thumb {
+  background-color: rgba(203, 213, 225, 0.8);
+  border-radius: 10px;
+}
+
+/* Animation utilities */
+.animation-delay-1000 {
+  animation-delay: 1s;
+}
+
+.animation-delay-2000 {
+  animation-delay: 2s;
+}
+
+.animation-delay-3000 {
+  animation-delay: 3s;
+}
+
+/* Service item animations */
+@keyframes spin-slow {
+  from {
+    transform: rotate(0deg);
+  }
+
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+.animate-spin-slow {
+  animation: spin-slow 15s linear infinite;
+}
+
+/* Enhanced ping animation for services */
+@keyframes enhanced-ping {
+  0% {
+    transform: scale(1);
+    opacity: 0.7;
+  }
+
+  50% {
+    transform: scale(1.15);
+    opacity: 0.2;
+  }
+
+  100% {
+    transform: scale(1);
+    opacity: 0.7;
+  }
+}
+
+.service-item:hover .animate-ping {
+  animation: enhanced-ping 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+}
+
+/* Gradient animation for service icons */
+@keyframes gradient-shift {
+  0% {
+    background-position: 0% 50%;
+  }
+
+  50% {
+    background-position: 100% 50%;
+  }
+
+  100% {
+    background-position: 0% 50%;
+  }
+}
+
+.animate-gradient-shift {
+  animation: gradient-shift 3s ease infinite;
+}
+
+.bg-size-200 {
+  background-size: 200% 200%;
+}
+
+/* Animation play state control */
+.animation-play-state-paused {
+  animation-play-state: paused;
+}
+
+/* Better icon transitions */
+.service-item .relative i {
+  backface-visibility: hidden;
+  transform-style: preserve-3d;
+  will-change: transform;
+}
+
+/* Smooth shadow transitions */
+.service-item .shadow-xl {
+  transition-property: box-shadow, transform;
+  transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+}
