@@ -37,7 +37,7 @@
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
 
     <script>
-        (function () {
+        (function() {
             const theme = localStorage.getItem("theme");
             if (theme === "light") {
                 document.documentElement.classList.remove("dark");
@@ -107,8 +107,17 @@
                                 <label class="mb-1.5 block text-sm font-medium text-gray-700 dark:text-gray-400">
                                     Password<span class="text-red-500">*</span>
                                 </label>
-                                <input type="password" name="password" required placeholder="Create a strong password"
-                                    class="auth-input h-11 w-full rounded-lg border border-gray-300 bg-transparent px-4 py-2.5 text-sm text-gray-800 placeholder:text-gray-400 focus:border-blue-300 focus:ring-3 focus:ring-primary/10 focus:outline-hidden dark:border-gray-700 dark:bg-gray-900 dark:text-white/90" />
+                                <div class="relative">
+                                    <input type="password" id="password" name="password" required
+                                        placeholder="Create a strong password"
+                                        class="auth-input h-11 w-full rounded-lg border border-gray-300 bg-transparent px-4 pr-11 py-2.5 text-sm text-gray-800 placeholder:text-gray-400 focus:border-blue-300 focus:ring-3 focus:ring-primary/10 focus:outline-hidden dark:border-gray-700 dark:bg-gray-900 dark:text-white/90" />
+
+                                    <button type="button"
+                                        class="absolute inset-y-0 right-3 flex items-center text-gray-500 hover:text-gray-600"
+                                        onclick="togglePassword('password', this)">
+                                        <i class="bi bi-eye"></i>
+                                    </button>
+                                </div>
                             </div>
 
                             <!-- Confirm Password -->
@@ -116,9 +125,17 @@
                                 <label class="mb-1.5 block text-sm font-medium text-gray-700 dark:text-gray-400">
                                     Confirm Password<span class="text-red-500">*</span>
                                 </label>
-                                <input type="password" name="password_confirmation" required
-                                    placeholder="Confirm your password"
-                                    class="auth-input h-11 w-full rounded-lg border border-gray-300 bg-transparent px-4 py-2.5 text-sm text-gray-800 placeholder:text-gray-400 focus:border-blue-300 focus:ring-3 focus:ring-primary/10 focus:outline-hidden dark:border-gray-700 dark:bg-gray-900 dark:text-white/90" />
+                                <div class="relative">
+                                    <input type="password" id="password_confirmation" name="password_confirmation"
+                                        required placeholder="Confirm your password"
+                                        class="auth-input h-11 w-full rounded-lg border border-gray-300 bg-transparent px-4 pr-11 py-2.5 text-sm text-gray-800 placeholder:text-gray-400 focus:border-blue-300 focus:ring-3 focus:ring-primary/10 focus:outline-hidden dark:border-gray-700 dark:bg-gray-900 dark:text-white/90" />
+
+                                    <button type="button"
+                                        class="absolute inset-y-0 right-3 flex items-center text-gray-500 hover:text-gray-600"
+                                        onclick="togglePassword('password_confirmation', this)">
+                                        <i class="bi bi-eye"></i>
+                                    </button>
+                                </div>
                             </div>
 
                             <!-- Submit -->
@@ -140,7 +157,7 @@
             </div>
 
             <!-- Right Side -->
-            <!-- <div class="relative hidden w-full h-full bg-gray-900 dark:bg-white/5 lg:grid lg:w-1/2 bg-cover bg-center bg-no-repeat before:absolute before:inset-0 before:bg-gray-900/70 before:content-['']" 
+            <!-- <div class="relative hidden w-full h-full bg-gray-900 dark:bg-white/5 lg:grid lg:w-1/2 bg-cover bg-center bg-no-repeat before:absolute before:inset-0 before:bg-gray-900/70 before:content-['']"
                 style="background-image: url('/assets/site/auth-bg.jpg');">
                 <div class="flex items-center justify-center z-10">
                     <div class="flex flex-col items-center max-w-xs">
@@ -171,6 +188,23 @@
             </div>
         </div>
     </div>
+
+    <script>
+        function togglePassword(inputId, btn) {
+            const input = document.getElementById(inputId);
+            const icon = btn.querySelector('i');
+
+            if (input.type === 'password') {
+                input.type = 'text';
+                icon.classList.remove('bi-eye');
+                icon.classList.add('bi-eye-slash');
+            } else {
+                input.type = 'password';
+                icon.classList.remove('bi-eye-slash');
+                icon.classList.add('bi-eye');
+            }
+        }
+    </script>
 
     <script>
         const themeToggle = document.getElementById("themeToggle");

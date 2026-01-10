@@ -1,29 +1,4 @@
 // Custom JS code can be added here
-$(document).ready(function () {
-    // Init DataTable
-    const table = $('#customTable').DataTable({
-        paging: true,
-        searching: true,
-        ordering: false,
-        info: true,
-        pageLength: 10,
-        lengthChange: true
-    });
-
-    // Select all
-    $('#selectAll').on('change', function () {
-        $('.rowCheckbox').prop('checked', this.checked);
-    });
-
-    // If one unchecked → uncheck selectAll
-    $(document).on('change', '.rowCheckbox', function () {
-        if (!this.checked) {
-            $('#selectAll').prop('checked', false);
-        } else if ($('.rowCheckbox:checked').length === $('.rowCheckbox').length) {
-            $('#selectAll').prop('checked', true);
-        }
-    });
-});
 
 // Header scroll behavior
 document.addEventListener("DOMContentLoaded", function () {

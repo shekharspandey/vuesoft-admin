@@ -32,6 +32,17 @@ Route::get('/register', [SiteController::class, 'register'])->name('register');
 Route::post('/signup', [SiteController::class, 'signup'])->name('signup');
 Route::get('/forgot-password', [SiteController::class, 'forgotPassword'])->name('forgotPassword');
 
+Route::get('/profile', [SiteController::class, 'profile'])->name('profile');
+Route::post('update-profile', [SiteController::class, 'updateProfile'])->name('updateProfile');
+Route::get('/profile/change-password', [SiteController::class, 'changePassword'])->name('changePassword');
+Route::post('/change-password', [SiteController::class, 'updatePassword'])->name('updatePassword');
 Route::get('/dashboard', [SiteController::class, 'dashboard'])->name('dashboard');
 Route::get('/users', [SiteController::class, 'users'])->name('users');
+Route::get('/users/data', [SiteController::class, 'usersData'])->name('users.data');
+Route::get('/users/{id}', [SiteController::class, 'userDetails'])->name('userDetails');
 Route::get('/services', [SiteController::class, 'services'])->name('services');
+Route::get('/faqs', [SiteController::class, 'faqs'])->name('faqs');
+Route::get('/faqs/data', [SiteController::class, 'faqsData'])->name('faqs.data');
+Route::get('/terms', [SiteController::class, 'terms'])->name('terms');
+Route::get('/privacy-policy', [SiteController::class, 'privacyPolicy'])->name('privacyPolicy');
+Route::post('/save-privacy-policy', [SiteController::class, 'savePrivacyPolicy'])->name('save.privacy.policy');

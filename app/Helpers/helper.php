@@ -150,57 +150,57 @@ function multipleFileUpload($request, $file_name, $path)
 
 
 // AWS File Upload
-function singleAWSFileUpload(Request $request, $file_name, $path = 'uploads')
-{
-    if (!$request->hasFile($file_name)) {
-        return false;
-    }
-    $file = $request->file($file_name);
-    $fileExtension = $file->extension();
-    $fileName = time() . '.' . $fileExtension;
-    $filePath = Storage::disk('s3')->putFileAs($path, $file, $fileName);
-    if (!$filePath) {
-        return false;
-    }
-    $fileUrl = Storage::disk('s3')->url($filePath);
-    return $fileUrl;
+// function singleAWSFileUpload(Request $request, $file_name, $path = 'uploads')
+// {
+//     if (!$request->hasFile($file_name)) {
+//         return false;
+//     }
+//     $file = $request->file($file_name);
+//     $fileExtension = $file->extension();
+//     $fileName = time() . '.' . $fileExtension;
+//     $filePath = Storage::disk('s3')->putFileAs($path, $file, $fileName);
+//     if (!$filePath) {
+//         return false;
+//     }
+//     $fileUrl = Storage::disk('s3')->url($filePath);
+//     return $fileUrl;
 
-    // $duration = null;
-    // if (in_array($fileExtension, ['mp4', 'avi', 'mov', 'mkv'])) {
-    //     $s3Client = new S3Client([
-    //         'version' => 'latest',
-    //         'region' => env('AWS_DEFAULT_REGION'),
-    //         'credentials' => [
-    //             'key' => env('AWS_ACCESS_KEY_ID'),
-    //             'secret' => env('AWS_SECRET_ACCESS_KEY'),
-    //         ],
-    //     ]);
-    //     $tempFilePath = sys_get_temp_dir() . '/' . basename($filePath);
-    //     $s3Client->getObject([
-    //         'Bucket' => env('AWS_BUCKET'),
-    //         'Key' => $filePath,
-    //         'SaveAs' => $tempFilePath,
-    //     ]);
-    //     $getID3 = new getID3();
-    //     $fileInfo = $getID3->analyze($tempFilePath);
-    //     $duration = isset($fileInfo['playtime_seconds']) ? (int) $fileInfo['playtime_seconds'] : null;
-    //     unlink($tempFilePath);
-    // }
-    // return (object) ['url' => $fileUrl, 'duration' => $duration];
-}
+//     // $duration = null;
+//     // if (in_array($fileExtension, ['mp4', 'avi', 'mov', 'mkv'])) {
+//     //     $s3Client = new S3Client([
+//     //         'version' => 'latest',
+//     //         'region' => env('AWS_DEFAULT_REGION'),
+//     //         'credentials' => [
+//     //             'key' => env('AWS_ACCESS_KEY_ID'),
+//     //             'secret' => env('AWS_SECRET_ACCESS_KEY'),
+//     //         ],
+//     //     ]);
+//     //     $tempFilePath = sys_get_temp_dir() . '/' . basename($filePath);
+//     //     $s3Client->getObject([
+//     //         'Bucket' => env('AWS_BUCKET'),
+//     //         'Key' => $filePath,
+//     //         'SaveAs' => $tempFilePath,
+//     //     ]);
+//     //     $getID3 = new getID3();
+//     //     $fileInfo = $getID3->analyze($tempFilePath);
+//     //     $duration = isset($fileInfo['playtime_seconds']) ? (int) $fileInfo['playtime_seconds'] : null;
+//     //     unlink($tempFilePath);
+//     // }
+//     // return (object) ['url' => $fileUrl, 'duration' => $duration];
+// }
 
-function multipleAWSFileUpload(Request $request, $file_name, $path = 'uploads')
-{
-    if ($request->hasFile($file_name)) {
-        $fileUrls = collect($request->file($file_name))->map(function ($file) use ($path) {
-            $fileName = time() . '.' . $file->extension();
-            $filePath = Storage::disk('s3')->putFileAs($path, $file, $fileName);
-            return Storage::disk('s3')->url($filePath);
-        })->toArray();
-        return !empty($fileUrls) ? $fileUrls : false;
-    }
-    return false;
-}
+// function multipleAWSFileUpload(Request $request, $file_name, $path = 'uploads')
+// {
+//     if ($request->hasFile($file_name)) {
+//         $fileUrls = collect($request->file($file_name))->map(function ($file) use ($path) {
+//             $fileName = time() . '.' . $file->extension();
+//             $filePath = Storage::disk('s3')->putFileAs($path, $file, $fileName);
+//             return Storage::disk('s3')->url($filePath);
+//         })->toArray();
+//         return !empty($fileUrls) ? $fileUrls : false;
+//     }
+//     return false;
+// }
 
 
 function generateSlug($string, $separator = '-', $maxLength = 100)

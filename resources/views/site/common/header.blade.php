@@ -46,13 +46,13 @@
 
                     <ul class="p-2 space-y-1">
                         <li>
-                            <a href="#"
+                            <a href="/profile"
                                 class="flex items-center gap-3 rounded-lg px-3 py-2 text-sm text-gray-900 dark:text-white hover:bg-gray-100 dark:hover:bg-gray-800">
                                 Profile
                             </a>
                         </li>
                         <li>
-                            <a href="#"
+                            <a href="/profile/change-password"
                                 class="flex items-center gap-3 rounded-lg px-3 py-2 text-sm text-gray-900 dark:text-white hover:bg-gray-100 dark:hover:bg-gray-800">
                                 Change Password
                             </a>
@@ -62,7 +62,11 @@
                     <div class="h-px bg-gray-900/10 dark:bg-white/10"></div>
 
                     <div class="p-2">
-                        <a href="{{ route('login') }}"
+                        <a href="javascript:void(0)"
+                            onclick="openConfirmModal({
+                                id: 'confirmModal',
+                                onConfirm: () => window.location.href = '{{ route('login') }}'
+                            })"
                             class="flex items-center gap-3 rounded-lg px-3 py-2 text-sm text-red-500 hover:bg-red-500/10">
                             Sign out
                         </a>
@@ -72,7 +76,10 @@
         </div>
 
     </div>
+
 </header>
+<x-confirm-modal id="confirmModal" title="Sign out" message="Are you sure you want to sign out from your account?"
+    confirmText="Sign out" confirmClass="bg-primary hover:bg-secondary" />
 
 <script>
     const toggleBtn = document.getElementById("profileToggle");
@@ -107,4 +114,47 @@
             }
         });
     }
+</script>
+
+<script>
+    let currentConfirmAction = null;
+
+    function openConfirmModal(options = {}) {
+        const modal = document.getElementById(options.id || 'confirmModal');
+        if (!modal) return;
+
+        currentConfirmAction = options.onConfirm || null;
+        modal.classList.remove('hidden');
+        modal.classList.add('flex');
+    }
+
+    function closeConfirmModal() {
+        const modal = document.getElementById('confirmModal');
+        console.log(modal)
+        if (!modal) return;
+        modal.classList.add('hidden');
+        modal.classList.remove('flex');
+        currentConfirmAction = null;
+    }
+
+    document.addEventListener('click', function(e) {
+
+        // CANCEL BUTTON
+        const cancelBtn = e.target.closest('[data-confirm-cancel]');
+        console.log(cancelBtn)
+        if (cancelBtn) {
+            closeConfirmModal();
+            return;
+        }
+
+        // CONFIRM BUTTON
+        const actionBtn = e.target.closest('[data-confirm-action]');
+        if (actionBtn) {
+            if (typeof currentConfirmAction === 'function') {
+                currentConfirmAction();
+            }
+            closeConfirmModal();
+            return;
+        }
+    });
 </script>
