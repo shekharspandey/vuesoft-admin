@@ -1,6 +1,9 @@
 @extends('site.common.app')
 
 @section('content')
+    @php
+        use Carbon\Carbon;
+    @endphp
     <div id="appContent"
         class="transition-all duration-300 ease-in-out ml-[290px] pt-[96px] px-6 pb-10 bg-gray-50 dark:bg-gray-900 min-h-screen">
 
@@ -27,8 +30,7 @@
                             class="h-full w-full object-cover">
                     @else
                         <div
-                            class="h-full w-full flex items-center justify-center
-            bg-gradient-to-br from-primary to-purple-600 text-white text-3xl font-bold">
+                            class="h-full w-full flex items-center justify-center bg-gradient-to-br from-primary to-purple-600 text-white text-3xl font-bold">
                             {{ strtoupper(substr($user->name, 0, 1)) }}
                         </div>
                     @endif
@@ -130,9 +132,14 @@
                     </h3>
 
                     <div class="space-y-3 text-sm text-gray-600 dark:text-gray-400">
-                        <div>• Last login: 2 hours ago</div>
-                        <div>• Password updated: 10 days ago</div>
-                        <div>• Profile updated: 1 month ago</div>
+                        <div>• Last login:
+                            {{ $user->last_login_at ? Carbon::parse($user->last_login_at)->diffForHumans() : 'Never' }}
+                        </div>
+                        <div>• Password updated:
+                            {{ $user->password_updated_at ? Carbon::parse($user->password_updated_at)->diffForHumans() : 'Never' }}
+                        </div>
+                        <div>• Profile updated:
+                            {{ $user->updated_at ? Carbon::parse($user->updated_at)->diffForHumans() : 'Never' }}</div>
                     </div>
                 </div>
 
@@ -165,9 +172,7 @@
                 <div class="flex items-center gap-4">
                     <div class="h-20 w-20 rounded-full overflow-hidden bg-gray-200 border dark:border-gray-700">
                         <img id="profilePreview"
-                            src="{{ $user->profile_image
-                                ? asset('storage/profile/' . $user->profile_image)
-                                : 'https://ui-avatars.com/api/?name=' . urlencode($user->name) }}"
+                            src="{{ $user->profile_image ? asset('storage/profile/' . $user->profile_image) : asset('/assets/site/no-image.jpg') }}"
                             class="h-full w-full object-cover">
                     </div>
 

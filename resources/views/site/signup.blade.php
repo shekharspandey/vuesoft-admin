@@ -55,11 +55,11 @@
                 class="flex flex-col w-full lg:max-w-lg border border-gray-200 shadow-xl rounded-3xl dark:border-gray-700">
                 <div class="flex flex-col justify-center w-full max-w-md min-h-[650px] mx-auto">
 
-                    <h1 class="mb-6 text-center font-bold text-primary text-sm sm:text-3xl">
+                    <h1 class="mb-4 text-center font-bold text-primary text-sm sm:text-3xl">
                         VueSoft Admin
                     </h1>
 
-                    <div class="mb-5 sm:mb-8">
+                    <div class="mb-2 sm:mb-4">
                         <h2 class="mb-2 font-semibold text-gray-800 text-sm dark:text-white/90 sm:text-xl">
                             Create Account
                         </h2>
@@ -69,6 +69,11 @@
                     </div>
 
                     <!-- Signup Form -->
+                    @if ($errors->any())
+                        <div class="mb-4 rounded-lg bg-red-500/10 px-4 py-2 text-sm text-red-600">
+                            {{ $errors->first() }}
+                        </div>
+                    @endif
                     <form method="POST" action="{{ route('signup') }}" autocomplete="off">
                         @csrf
 
@@ -80,7 +85,7 @@
                                     <label class="mb-1.5 block text-sm font-medium text-gray-700 dark:text-gray-400">
                                         First Name<span class="text-red-500">*</span>
                                     </label>
-                                    <input type="text" name="first_name" required placeholder="John"
+                                    <input type="text" name="first_name" required placeholder="John" value="{{ old('first_name') }}"
                                         class="auth-input h-11 w-full rounded-lg border border-gray-300 bg-transparent px-4 py-2.5 text-sm text-gray-800 placeholder:text-gray-400 focus:border-blue-300 focus:ring-3 focus:ring-primary/10 focus:outline-hidden dark:border-gray-700 dark:bg-gray-900 dark:text-white/90" />
                                 </div>
 
@@ -88,7 +93,7 @@
                                     <label class="mb-1.5 block text-sm font-medium text-gray-700 dark:text-gray-400">
                                         Last Name<span class="text-red-500">*</span>
                                     </label>
-                                    <input type="text" name="last_name" required placeholder="Doe"
+                                    <input type="text" name="last_name" required placeholder="Doe" value="{{ old('last_name') }}"
                                         class="auth-input h-11 w-full rounded-lg border border-gray-300 bg-transparent px-4 py-2.5 text-sm text-gray-800 placeholder:text-gray-400 focus:border-blue-300 focus:ring-3 focus:ring-primary/10 focus:outline-hidden dark:border-gray-700 dark:bg-gray-900 dark:text-white/90" />
                                 </div>
                             </div>
@@ -98,7 +103,7 @@
                                 <label class="mb-1.5 block text-sm font-medium text-gray-700 dark:text-gray-400">
                                     Email<span class="text-red-500">*</span>
                                 </label>
-                                <input type="email" name="email" required placeholder="info@gmail.com"
+                                <input type="email" name="email" required placeholder="info@gmail.com" value="{{ old('email') }}"
                                     class="auth-input h-11 w-full rounded-lg border border-gray-300 bg-transparent px-4 py-2.5 text-sm text-gray-800 placeholder:text-gray-400 focus:border-blue-300 focus:ring-3 focus:ring-primary/10 focus:outline-hidden dark:border-gray-700 dark:bg-gray-900 dark:text-white/90" />
                             </div>
 

@@ -39,6 +39,8 @@
     <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
     <script src="https://cdn.datatables.net/2.3.6/js/dataTables.min.js"></script>
 
+    <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/toastify-js/src/toastify.min.css">
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/toastify-js"></script>
 
     <script>
         (function() {
@@ -60,6 +62,33 @@
     </main>
 
     @include('site.common.footer')
+
+    <script>
+        function showToast(message, type = "success") {
+            document.querySelectorAll('.toastify').forEach(t => t.remove());
+            const styles = {
+                success: "linear-gradient(135deg, #00b09b, #96c93d)",
+                error: "linear-gradient(135deg, #ff416c, #ff4b2b)",
+                info: "linear-gradient(135deg, #2193b0, #6dd5ed)",
+                warning: "linear-gradient(135deg, #f7971e, #ffd200)",
+            };
+            Toastify({
+                text: message,
+                duration: 3500,
+                gravity: "top",
+                position: "right",
+                close: true,
+                stopOnFocus: true,
+                style: {
+                    background: styles[type],
+                    borderRadius: "12px",
+                    boxShadow: "0 10px 25px rgba(255, 75, 43, 0.35)",
+                    fontSize: "14px",
+                    padding: "14px 20px",
+                },
+            }).showToast();
+        }
+    </script>
 </body>
 
 </html>

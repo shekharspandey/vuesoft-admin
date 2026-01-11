@@ -61,11 +61,14 @@
 
                     <div class="h-px bg-gray-900/10 dark:bg-white/10"></div>
 
+                    <form id="logoutForm" method="POST" action="{{ route('logout') }}" class="hidden">
+                        @csrf
+                    </form>
                     <div class="p-2">
                         <a href="javascript:void(0)"
                             onclick="openConfirmModal({
                                 id: 'confirmModal',
-                                onConfirm: () => window.location.href = '{{ route('login') }}'
+                                onConfirm: () => document.getElementById('logoutForm').submit()
                             })"
                             class="flex items-center gap-3 rounded-lg px-3 py-2 text-sm text-red-500 hover:bg-red-500/10">
                             Sign out

@@ -45,37 +45,54 @@
                         Change Password
                     </h3>
 
+                    @if ($errors->any())
+                        <div class="mb-4 rounded-lg bg-red-500/10 px-4 py-2 text-sm text-red-600">
+                            {{ $errors->first() }}
+                        </div>
+                    @endif
                     <form id="changePasswordForm" class="space-y-5">
                         @csrf
 
                         <!-- Current Password -->
-                        <div>
-                            <label class="block mb-1 text-sm font-medium">
-                                Current Password
-                            </label>
-                            <input type="password" name="current_password" required
+                        <div class="relative">
+                            <input type="password" id="currentPassword" name="current_password" required
+                                placeholder="Enter Current Password"
                                 class="w-full rounded-lg border border-gray-200 dark:border-gray-700
-                            px-4 py-2 bg-transparent focus:ring-2 focus:ring-primary">
+        px-4 pr-11 py-2 bg-transparent focus:ring-2 focus:ring-primary">
+
+                            <button type="button" class="absolute inset-y-0 right-3 flex items-center text-gray-500"
+                                onclick="toggleEye('currentPassword', this)">
+                                <i class="bi bi-eye"></i>
+                                <i class="bi bi-eye-slash hidden"></i>
+                            </button>
                         </div>
 
                         <!-- New Password -->
-                        <div>
-                            <label class="block mb-1 text-sm font-medium">
-                                New Password
-                            </label>
-                            <input type="password" name="password" required
+                        <div class="relative">
+                            <input type="password" id="newPassword" name="password" required
+                                placeholder="Enter New Password"
                                 class="w-full rounded-lg border border-gray-200 dark:border-gray-700
-                            px-4 py-2 bg-transparent focus:ring-2 focus:ring-primary">
+        px-4 pr-11 py-2 bg-transparent focus:ring-2 focus:ring-primary">
+
+                            <button type="button" class="absolute inset-y-0 right-3 flex items-center text-gray-500"
+                                onclick="toggleEye('newPassword', this)">
+                                <i class="bi bi-eye"></i>
+                                <i class="bi bi-eye-slash hidden"></i>
+                            </button>
                         </div>
 
                         <!-- Confirm Password -->
-                        <div>
-                            <label class="block mb-1 text-sm font-medium">
-                                Confirm New Password
-                            </label>
-                            <input type="password" name="password_confirmation" required
+                        <div class="relative">
+                            <input type="password" id="confirmPassword" name="password_confirmation" required
+                                placeholder="Confirm New Password"
                                 class="w-full rounded-lg border border-gray-200 dark:border-gray-700
-                            px-4 py-2 bg-transparent focus:ring-2 focus:ring-primary">
+        px-4 pr-11 py-2 bg-transparent focus:ring-2 focus:ring-primary">
+
+                            <button type="button" class="absolute inset-y-0 right-3 flex items-center text-gray-500"
+                                onclick="toggleEye('confirmPassword', this)">
+                                <i class="bi bi-eye"></i>
+                                <i class="bi bi-eye-slash hidden"></i>
+                            </button>
                         </div>
 
                         <!-- Footer -->
@@ -113,19 +130,33 @@
     </div>
 
     <script>
+        function toggleEye(inputId, btn) {
+            const input = document.getElementById(inputId);
+            const eyeOpen = btn.children[0];
+            const eyeClose = btn.children[1];
+
+            const isPassword = input.type === 'password';
+
+            input.type = isPassword ? 'text' : 'password';
+            eyeOpen.classList.toggle('hidden', isPassword);
+            eyeClose.classList.toggle('hidden', !isPassword);
+        }
+    </script>
+
+    <script>
         document.getElementById('changePasswordForm').addEventListener('submit', function(e) {
             e.preventDefault();
 
             $.ajax({
-                url: "{{ route('changePassword') }}",
+                url: "{{ route('updatePassword') }}",
                 type: "POST",
                 data: $(this).serialize(),
                 success: function(res) {
-                    alert('Password updated successfully');
+                    showToast("Profile updated successfully", "error");
                     window.location.href = "{{ route('profile') }}";
                 },
                 error: function(xhr) {
-                    alert(xhr.responseJSON?.message || 'Something went wrong');
+                    showToast(xhr.responseJSON?.message || "Something went wrong", "error");
                 }
             });
         });

@@ -6,6 +6,9 @@ use DB;
 use Illuminate\Http\Request;
 use App\Models\SiteModel;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Validator;
+use Illuminate\Support\Str;
+use Jenssegers\Agent\Agent;
 use Yajra\DataTables\Facades\DataTables;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\Storage;
@@ -34,7 +37,80 @@ class SiteController extends Controller
 
     public function signin(Request $request)
     {
+        $validator = Validator::make($request->all(), [
+            'email' => 'required|email',
+            'password' => 'required',
+        ]);
+        if ($validator->fails()) {
+            return back()->withErrors($validator)->withInput();
+        }
+
+        $admin = DB::table('admins')
+            ->where('email', $request->input('email'))
+            ->where('status', 'Active')
+            ->first();
+
+        if (!$admin) {
+            return back()->withErrors(['email' => 'Admin not found']);
+        }
+
+        if (!Hash::check($request->input('password'), $admin->password)) {
+            return back()->withErrors(['email' => 'Wrong password']);
+        }
+
+        $request->session()->regenerate();
+
+        $sessionToken = hash('sha256', Str::uuid()->toString());
+
+        $agent = new Agent();
+
+        DB::table('admin_sessions')->insert([
+            'admin_id' => $admin->id,
+            'session_token' => $sessionToken,
+            'device_type' => $agent->isMobile() ? 'mobile' : 'desktop',
+            'browser' => $agent->browser(),
+            'platform' => $agent->platform(),
+            'ip_address' => $request->ip(),
+            'logged_in_at' => now(),
+            'is_active' => true,
+        ]);
+
+        session([
+            'admin_logged_in' => true,
+            'admin_id' => $admin->id,
+            'admin_session_token' => $sessionToken,
+        ]);
+
+        DB::table('admins')
+            ->where('id', $admin->id)
+            ->update(['current_session_id' => $sessionToken, 'last_login_at' => now()]);
+
+        session([
+            'admin_logged_in' => true,
+            'admin_id' => $admin->id,
+            'admin_info' => $admin,
+        ]);
+
         return redirect()->route('dashboard');
+    }
+
+    public function logout(Request $request)
+    {
+        $adminId = session('admin_id');
+
+        $admin = DB::table('admins')->where('id', $adminId)->first();
+
+        DB::table('admins')
+            ->where('id', $adminId)
+            ->update([
+                'current_session_id' => null,
+                'last_logout_at' => now(),
+            ]);
+
+        $request->session()->invalidate();
+        $request->session()->regenerateToken();
+
+        return redirect()->route('login');
     }
 
     public function register()
@@ -46,7 +122,27 @@ class SiteController extends Controller
 
     public function signup(Request $request)
     {
-        return redirect()->route('login');
+        $validator = Validator::make($request->all(), [
+            'first_name' => 'required|string|max:100',
+            'last_name' => 'required|string|max:100',
+            'email' => 'required|email|max:191|unique:admins,email',
+            'password' => 'required|min:8|confirmed',
+        ]);
+        if ($validator->fails()) {
+            return back()->withErrors($validator)->withInput();
+        }
+
+        DB::table('admins')->insert([
+            'name' => trim($request->first_name . ' ' . $request->last_name),
+            'email' => $request->email,
+            'password' => Hash::make($request->password),
+            'status' => 'Active',
+            'password_updated_at' => now(),
+            'created_at' => now(),
+            'updated_at' => now(),
+        ]);
+
+        return redirect()->route('login')->with('success', 'Account created successfully. Please login.');
     }
 
     public function forgotPassword()
@@ -59,41 +155,42 @@ class SiteController extends Controller
     public function profile()
     {
         $data['title'] = "VueSoft Admin - Profile";
-        $data['user'] = DB::table('admins')->where('id', 1)->first();
+        $data['user'] = DB::table('admins')->where('id', session('admin_id'))->first();
         return $this->loadview('profile', $data);
     }
 
     public function updateProfile(Request $request)
     {
-        $request->validate([
+        $adminId = session('admin_id');
+
+        $validator = Validator::make($request->all(), [
             'name' => 'required|string|max:255',
-            'email' => 'required|email|unique:users,email,' . auth()->id(),
+            'email' => 'required|email|unique:admins,email,' . $adminId,
             'profile_image' => 'nullable|image|max:2048',
         ]);
+        if ($validator->fails()) {
+            return back()->withErrors($validator)->withInput();
+        }
 
-        $admin = DB::table('admins')->where('id', 1)->first();
-
+        $admin = DB::table('admins')->where('id', $adminId)->first();
         $filename = $admin->profile_image;
 
         if ($request->hasFile('profile_image')) {
 
-            // if ($filename) {
-            //     Storage::delete('public/profile/' . $filename);
-            // }
+            if ($filename && Storage::disk('public')->exists('profile/' . $filename)) {
+                Storage::disk('public')->delete('profile/' . $filename);
+            }
 
             $filename = time() . '_' . $request->file('profile_image')->getClientOriginalName();
-            // dd($filename);
-            $request->file('profile_image')->storeAs('public/profile', $filename);
+            $request->file('profile_image')->storeAs('profile', $filename, 'public');
         }
 
-        DB::table('admins')
-            ->where('id', 1)
-            ->update([
-                'name' => $request->name,
-                'email' => $request->email,
-                'profile_image' => $filename,
-                'updated_at' => now(),
-            ]);
+        DB::table('admins')->where('id', $adminId)->update([
+            'name' => $request->input('name'),
+            'email' => $request->input('email'),
+            'profile_image' => $filename,
+            'updated_at' => now(),
+        ]);
 
         return response()->json(['success' => true]);
     }
@@ -106,24 +203,41 @@ class SiteController extends Controller
 
     public function updatePassword(Request $request)
     {
-        $request->validate([
+        $adminId = session('admin_id');
+
+        $validator = Validator::make($request->all(), [
             'current_password' => 'required',
             'password' => 'required|min:8|confirmed',
         ]);
+        if ($validator->fails()) {
+            return back()->withErrors($validator)->withInput();
+        }
 
-        $admin = DB::table('admins')->where('id', 1)->first();
+        $admin = DB::table('admins')->where('id', $adminId)->first();
 
+        // ❌ Current password wrong
         if (!Hash::check($request->input('current_password'), $admin->password)) {
-            return response()->json(['message' => 'Current password is incorrect'], 422);
+            return response()->json([
+                'message' => 'Current password is incorrect'
+            ], 422);
+        }
+
+        // ❌ Same as old password
+        if (Hash::check($request->input('password'), $admin->password)) {
+            return response()->json([
+                'message' => 'New password must be different from current password'
+            ], 422);
         }
 
         DB::table('admins')
-            ->where('id', 1)
+            ->where('id', $adminId)
             ->update([
                 'password' => Hash::make($request->input('password')),
+                'password_updated_at' => now(),
+                'updated_at' => now(),
             ]);
 
-        return response()->json(['message' => 'Password updated']);
+        return redirect()->back()->with('success', 'Saved successfully!');
     }
 
     public function dashboard()

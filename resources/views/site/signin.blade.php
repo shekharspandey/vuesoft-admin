@@ -69,6 +69,11 @@
                     </div>
 
                     <!-- Login Form -->
+                    @if ($errors->any())
+                        <div class="mb-4 rounded-lg bg-red-500/10 px-4 py-2 text-sm text-red-600">
+                            {{ $errors->first() }}
+                        </div>
+                    @endif
                     <form method="POST" action="{{ route('signin') }}" autocomplete="off">
                         @csrf
 
