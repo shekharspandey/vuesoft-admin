@@ -1,8 +1,14 @@
 <header
-    class="fixed top-0 right-0 z-50 h-[72px] bg-white dark:bg-gray-900 backdrop-blur border-b border-gray-900/10 dark:border-white/5 transition-all duration-300 ease-in-out ml-[290px] w-[calc(100%-290px)]">
+    class="fixed top-0 right-0 z-40 h-[72px] bg-white dark:bg-gray-900 backdrop-blur border-b border-gray-900/10 dark:border-white/5 transition-all duration-300 ease-in-out lg:ml-[290px] sidebar-collapsed:ml-[80px] lg:w-[calc(100%-290px)] sidebar-collapsed:w-[calc(100%-80px)] ml-0 w-full">
     <div class="flex h-full items-center justify-between px-6">
         <!-- LEFT -->
         <div class="flex items-center gap-4">
+            <!-- Mobile Sidebar Toggle Button (visible on lg and below) -->
+            <button id="mobileSidebarToggle"
+                class="flex xl:hidden items-center justify-center w-10 h-10 text-gray-500 border border-gray-200 rounded-lg dark:border-gray-800 dark:text-gray-400 lg:h-11 lg:w-11"
+                aria-label="Toggle Mobile Sidebar">
+                <i class="bi bi-list"></i>
+            </button>
             <!-- Desktop Sidebar Toggle Button (visible on xl and up) -->
             <button id="sidebarToggle"
                 class="hidden xl:flex items-center justify-center w-10 h-10 text-gray-500 border border-gray-200 rounded-lg dark:border-gray-800 dark:text-gray-400 lg:h-11 lg:w-11"

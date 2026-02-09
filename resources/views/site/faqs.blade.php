@@ -2,17 +2,21 @@
 
 @section('content')
     <div id="appContent"
-        class="transition-all duration-300 ease-in-out ml-[290px] pt-[96px] px-6 pb-6 bg-white dark:bg-gray-900 min-h-screen">
+        class="transition-all duration-300 ease-in-out
+           ml-0 lg:ml-[290px] sidebar-collapsed:ml-[80px]
+           pt-[72px] sm:pt-[88px] lg:pt-[96px]
+           px-4 sm:px-6 pb-6
+           bg-white dark:bg-gray-900 min-h-screen">
 
         <!-- Header -->
-        <div class="mb-6">
-            <div class="flex flex-wrap items-center justify-between gap-3 mb-6">
+        <div class="mb-4 sm:mb-6">
+            <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3 mb-4 sm:mb-6">
                 <x-bread-crumb title="FAQs" :breadcrumbs="[['label' => 'Home', 'url' => route('dashboard')], ['label' => 'FAQs']]" />
 
                 <a href="javascript:void(0)" onclick="openAddFaq()"
-                    class="bg-primary shadow-theme-xs hover:bg-brand-600 inline-flex items-center gap-2 rounded-lg px-4 py-3 text-sm font-medium text-white transition">
+                    class="bg-primary shadow-theme-xs hover:bg-brand-600 inline-flex items-center justify-center gap-2 rounded-lg px-3 py-2 sm:px-4 sm:py-3 text-xs sm:text-sm font-medium text-white transition">
                     <i class="fa fa-plus"></i>
-                    Add FAQ
+                    <span class="hidden sm:inline">Add FAQ</span>
                 </a>
             </div>
         </div>

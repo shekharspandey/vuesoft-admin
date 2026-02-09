@@ -37,7 +37,7 @@
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
 
     <script>
-        (function () {
+        (function() {
             const theme = localStorage.getItem("theme");
             if (theme === "light") {
                 document.documentElement.classList.remove("dark");
@@ -47,15 +47,16 @@
 </head>
 
 <body>
-    <div class="relative p-6 bg-white z-1 dark:bg-gray-900 sm:p-0">
+    <div class="relative px-4 py-8 sm:px-6 bg-white z-1 dark:bg-gray-900 sm:p-0">
         <div
-            class="relative flex flex-col justify-center items-center w-full h-screen dark:bg-gray-900 sm:p-0 lg:flex-row">
+            class="relative flex flex-col justify-center items-center w-full min-h-screen dark:bg-gray-900 sm:p-0 lg:flex-row">
             <!-- Form Section -->
             <div
-                class="flex flex-col w-full lg:max-w-lg border border-gray-200 shadow-xl rounded-3xl dark:border-gray-700">
-                <div class="flex flex-col justify-center w-full max-w-md min-h-[600px] mx-auto">
+                class="flex flex-col w-full sm:max-w-md md:max-w-lg lg:max-w-lg xl:max-w-xl border border-gray-200 shadow-xl rounded-3xl dark:border-gray-700">
+                <div
+                    class="flex flex-col justify-center w-full max-w-md min-h-[520px] sm:min-h-[560px] lg:min-h-[600px] px-4 sm:px-8 mx-auto">
 
-                    <h1 class="mb-6 text-center font-bold text-primary text-sm sm:text-3xl">
+                    <h1 class="mb-4 sm:mb-6 text-center font-bold text-primary text-xl sm:text-3xl">
                         VueSoft Admin
                     </h1>
 
@@ -91,7 +92,7 @@
                         </div>
                     </form>
 
-                    <p class="mt-5 text-sm text-center text-gray-700 dark:text-gray-400 sm:text-start">
+                    <p class="mt-5 text-xs sm:text-sm text-center sm:text-left text-gray-700 dark:text-gray-400">
                         Remember your password?
                         <a href="{{ route('login') }}" class="text-primary hover:text-secondary">
                             Back to Sign In
@@ -102,7 +103,7 @@
             </div>
 
             <!-- Right Side -->
-            <!-- <div class="relative hidden w-full h-full bg-gray-900 dark:bg-white/5 lg:grid lg:w-1/2 bg-cover bg-center bg-no-repeat before:absolute before:inset-0 before:bg-gray-900/70 before:content-['']" 
+            <!-- <div class="relative hidden w-full h-full bg-gray-900 dark:bg-white/5 lg:grid lg:w-1/2 bg-cover bg-center bg-no-repeat before:absolute before:inset-0 before:bg-gray-900/70 before:content-['']"
                 style="background-image: url('/assets/site/auth-bg.jpg');">
                 <div class="flex items-center justify-center z-10">
                     <div class="flex flex-col items-center max-w-xs">

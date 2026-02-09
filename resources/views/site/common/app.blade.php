@@ -52,7 +52,7 @@
     </script>
 </head>
 
-<body>
+<body class="bg-white dark:bg-gray-900">
     @include('site.common.header')
 
     @include('site.common.sidebar')

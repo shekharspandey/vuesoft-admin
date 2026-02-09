@@ -2,10 +2,14 @@
 
 @section('content')
     <div id="appContent"
-        class="transition-all duration-300 ease-in-out ml-[290px] pt-[96px] px-6 pb-10 bg-gray-50 dark:bg-gray-900 min-h-screen">
+        class="transition-all duration-300 ease-in-out
+           ml-0 lg:ml-[290px] sidebar-collapsed:ml-[80px]
+           pt-[72px] sm:pt-[88px] lg:pt-[96px]
+           px-4 sm:px-6 pb-6 sm:pb-10
+           bg-gray-50 dark:bg-gray-900 min-h-screen">
 
         <!-- Header -->
-        <div class="mb-6">
+        <div class="mb-4 sm:mb-6">
             <x-bread-crumb title="Change Password" :breadcrumbs="[
                 ['label' => 'Home', 'url' => route('dashboard')],
                 ['label' => 'Profile', 'url' => route('profile')],
@@ -14,7 +18,7 @@
         </div>
 
         <!-- HERO CARD -->
-        <div class="relative rounded-2xl bg-white dark:bg-gray-800 shadow p-6 mb-8 overflow-hidden">
+        <div class="relative rounded-2xl bg-white dark:bg-gray-800 shadow p-4 sm:p-6 mb-6 sm:mb-8 overflow-hidden">
             <div class="absolute inset-0 bg-gradient-to-r from-primary/5 via-transparent to-purple-500/5"></div>
 
             <div class="relative flex items-center gap-4">
@@ -103,7 +107,7 @@
                                 Cancel
                             </a>
                             <button type="submit" class="px-4 py-2 rounded-lg bg-primary text-white shadow">
-                                Update Password
+                                Update
                             </button>
                         </div>
                     </form>
@@ -119,7 +123,7 @@
 
                     <ul class="space-y-2 text-sm text-gray-600 dark:text-gray-400">
                         <li>• Minimum 8 characters</li>
-                        <li>• Use uppercase & lowercase letters</li>
+                        <li>• Use uppercase & lowercase</li>
                         <li>• Include numbers & symbols</li>
                         <li>• Avoid common words</li>
                     </ul>

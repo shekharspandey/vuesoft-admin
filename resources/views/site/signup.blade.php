@@ -47,15 +47,16 @@
 </head>
 
 <body>
-    <div class="relative p-6 bg-white z-1 dark:bg-gray-900 sm:p-0">
+    <div class="relative px-4 py-8 sm:px-6 bg-white z-1 dark:bg-gray-900 sm:p-0">
         <div
-            class="relative flex flex-col justify-center items-center w-full h-screen dark:bg-gray-900 sm:p-0 lg:flex-row">
+            class="relative flex flex-col justify-center items-center w-full min-h-screen dark:bg-gray-900 sm:p-0 lg:flex-row">
             <!-- Form Section -->
             <div
-                class="flex flex-col w-full lg:max-w-lg border border-gray-200 shadow-xl rounded-3xl dark:border-gray-700">
-                <div class="flex flex-col justify-center w-full max-w-md min-h-[650px] mx-auto">
+                class="flex flex-col w-full sm:max-w-md md:max-w-lg lg:max-w-lg xl:max-w-xl border border-gray-200 shadow-xl rounded-3xl dark:border-gray-700">
+                <div
+                    class="flex flex-col justify-center w-full max-w-md min-h-[560px] sm:min-h-[600px] lg:min-h-[650px] px-4 sm:px-8 mx-auto">
 
-                    <h1 class="mb-4 text-center font-bold text-primary text-sm sm:text-3xl">
+                    <h1 class="mb-4 sm:mb-6 text-center font-bold text-primary text-xl sm:text-3xl">
                         VueSoft Admin
                     </h1>
 
@@ -77,15 +78,16 @@
                     <form method="POST" action="{{ route('signup') }}" autocomplete="off">
                         @csrf
 
-                        <div class="space-y-5">
+                        <div class="space-y-3">
 
                             <!-- Name -->
-                            <div class="grid grid-cols-1 gap-4 sm:grid-cols-2">
+                            <div class="grid grid-cols-1 sm:grid-cols-2 gap-2 sm:gap-4">
                                 <div>
                                     <label class="mb-1.5 block text-sm font-medium text-gray-700 dark:text-gray-400">
                                         First Name<span class="text-red-500">*</span>
                                     </label>
-                                    <input type="text" name="first_name" required placeholder="John" value="{{ old('first_name') }}"
+                                    <input type="text" name="first_name" required placeholder="John"
+                                        value="{{ old('first_name') }}"
                                         class="auth-input h-11 w-full rounded-lg border border-gray-300 bg-transparent px-4 py-2.5 text-sm text-gray-800 placeholder:text-gray-400 focus:border-blue-300 focus:ring-3 focus:ring-primary/10 focus:outline-hidden dark:border-gray-700 dark:bg-gray-900 dark:text-white/90" />
                                 </div>
 
@@ -93,7 +95,8 @@
                                     <label class="mb-1.5 block text-sm font-medium text-gray-700 dark:text-gray-400">
                                         Last Name<span class="text-red-500">*</span>
                                     </label>
-                                    <input type="text" name="last_name" required placeholder="Doe" value="{{ old('last_name') }}"
+                                    <input type="text" name="last_name" required placeholder="Doe"
+                                        value="{{ old('last_name') }}"
                                         class="auth-input h-11 w-full rounded-lg border border-gray-300 bg-transparent px-4 py-2.5 text-sm text-gray-800 placeholder:text-gray-400 focus:border-blue-300 focus:ring-3 focus:ring-primary/10 focus:outline-hidden dark:border-gray-700 dark:bg-gray-900 dark:text-white/90" />
                                 </div>
                             </div>
@@ -103,7 +106,8 @@
                                 <label class="mb-1.5 block text-sm font-medium text-gray-700 dark:text-gray-400">
                                     Email<span class="text-red-500">*</span>
                                 </label>
-                                <input type="email" name="email" required placeholder="info@gmail.com" value="{{ old('email') }}"
+                                <input type="email" name="email" required placeholder="info@gmail.com"
+                                    value="{{ old('email') }}"
                                     class="auth-input h-11 w-full rounded-lg border border-gray-300 bg-transparent px-4 py-2.5 text-sm text-gray-800 placeholder:text-gray-400 focus:border-blue-300 focus:ring-3 focus:ring-primary/10 focus:outline-hidden dark:border-gray-700 dark:bg-gray-900 dark:text-white/90" />
                             </div>
 
@@ -151,7 +155,7 @@
                         </div>
                     </form>
 
-                    <p class="mt-5 text-sm text-center text-gray-700 dark:text-gray-400 sm:text-start">
+                    <p class="mt-5 text-xs sm:text-sm text-center sm:text-left text-gray-700 dark:text-gray-400">
                         Already have an account?
                         <a href="{{ route('login') }}" class="text-primary hover:text-secondary">
                             Sign In

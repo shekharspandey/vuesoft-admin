@@ -420,4 +420,18 @@ class SiteController extends Controller
         $data['title'] = "VueSoft Admin - Terms and Conditions";
         return $this->loadview('terms', $data);
     }
+
+    public function saveTerms(Request $request)
+    {
+        DB::table('static_pages')->updateOrInsert(
+            [
+                'title' => $request->input('title'),
+                'language' => $request->input('language'),
+                'content' => $request->input('content'),
+                'updated_at' => now(),
+            ]
+        );
+
+        return response()->json(['success' => true]);
+    }
 }

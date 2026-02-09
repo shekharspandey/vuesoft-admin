@@ -2,18 +2,22 @@
 
 @section('content')
     <div id="appContent"
-        class="transition-all duration-300 ease-in-out ml-[290px] pt-[96px] px-6 pb-6 bg-white dark:bg-gray-900 min-h-screen">
+        class="transition-all duration-300 ease-in-out
+           ml-0 lg:ml-[290px] sidebar-collapsed:ml-[80px]
+           pt-[72px] sm:pt-[88px] lg:pt-[96px]
+           px-4 sm:px-6 pb-6
+           bg-white dark:bg-gray-900 min-h-screen">
 
         <!-- Header -->
-        <div class="mb-6">
-            <div class="flex flex-wrap items-center justify-between gap-3 mb-6">
+        <div class="mb-4 sm:mb-6">
+            <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3 mb-4 sm:mb-6">
                 <x-bread-crumb title="Users" :breadcrumbs="[['label' => 'Home', 'url' => route('dashboard')], ['label' => 'Users']]" />
 
                 <div class="flex gap-3">
                     <button
-                        class="shadow-theme-xs inline-flex items-center justify-center gap-2 rounded-lg bg-white px-4 py-3 text-sm font-medium text-gray-700 ring-1 ring-gray-300 transition hover:bg-gray-50 dark:bg-gray-800 dark:text-gray-400 dark:ring-gray-700 dark:hover:bg-white/[0.03]">
+                        class="shadow-theme-xs inline-flex items-center justify-center gap-2 rounded-lg bg-white px-3 py-2 sm:px-4 sm:py-3 text-xs sm:text-sm font-medium text-gray-700 ring-1 ring-gray-300 transition hover:bg-gray-50 dark:bg-gray-800 dark:text-gray-400 dark:ring-gray-700 dark:hover:bg-white/[0.03]">
                         <i class="bi bi-bell"></i>
-                        Send Notification
+                        <span class="hidden sm:inline">Send Notification</span>
                     </button>
                     {{-- <a href="javascript:void(0)" onclick="openAddUser()"
                         class="bg-primary shadow-theme-xs hover:bg-brand-600 inline-flex items-center justify-center gap-2 rounded-lg px-4 py-3 text-sm font-medium text-white transition">
@@ -27,18 +31,18 @@
         <!-- Table Card -->
         <div class="relative rounded-xl border border-gray-900/10 dark:border-white/10 shadow-xl overflow-hidden">
             <div class="overflow-x-auto">
-                <table id="customTable" class="w-full text-sm">
+                <table id="customTable" class="w-full text-xs sm:text-sm">
                     <thead class="bg-gray-100 dark:bg-gray-800 text-gray-600 dark:text-gray-300 uppercase text-xs">
                         <tr>
-                            <th class="px-4 py-4 text-left">
+                            <th class="px-2 sm:px-4 py-3 sm:py-4 text-left">
                                 <input type="checkbox" id="selectAll"
                                     class="h-4 w-4 rounded border-gray-300 accent-primary focus:ring-primary">
                             </th>
-                            <th class="px-6 py-4 text-left">User</th>
-                            <th class="px-6 py-4 text-left">Email</th>
-                            <th class="px-6 py-4 text-left">Role</th>
-                            <th class="px-6 py-4 text-left">Status</th>
-                            <th class="px-6 py-4 text-left">Action</th>
+                            <th class="px-2 sm:px-6 py-3 sm:py-4 text-left">User</th>
+                            <th class="px-2 sm:px-6 py-3 sm:py-4 text-left">Email</th>
+                            <th class="px-2 sm:px-6 py-3 sm:py-4 text-left">Role</th>
+                            <th class="px-2 sm:px-6 py-3 sm:py-4 text-left">Status</th>
+                            <th class="px-2 sm:px-6 py-3 sm:py-4 text-left">Action</th>
                         </tr>
                     </thead>
                 </table>
@@ -47,7 +51,8 @@
     </div>
 
     <!-- Add / Edit User Modal -->
-    <div id="userFormModal" class="fixed inset-0 z-[9999] hidden items-center justify-center bg-black/50 backdrop-blur-sm">
+    <div id="userFormModal"
+        class="fixed inset-0 z-[9999] hidden items-center justify-center bg-black/50 backdrop-blur-sm p-4">
 
         <div class="w-full max-w-xl rounded-2xl bg-white dark:bg-gray-900 shadow-xl">
             <!-- Header -->

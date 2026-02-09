@@ -2,15 +2,20 @@
 
 @section('content')
     <div id="appContent"
-        class="transition-all duration-300 ease-in-out ml-[290px] pt-[96px] px-6 pb-6 bg-white dark:bg-gray-900 min-h-screen">
+        class="transition-all duration-300 ease-in-out
+           ml-0 lg:ml-[290px] sidebar-collapsed:ml-[80px]
+           pt-[72px] sm:pt-[88px] lg:pt-[96px]
+           px-4 sm:px-6 pb-6
+           bg-white dark:bg-gray-900 min-h-screen">
 
         <!-- Header -->
-        <div class="mb-6">
+        <div class="mb-4 sm:mb-6">
             <x-bread-crumb title="Privacy Policy" :breadcrumbs="[['label' => 'Home', 'url' => route('dashboard')], ['label' => 'Privacy Policy']]" />
         </div>
 
         <!-- Form Card -->
-        <div class="rounded-xl border border-gray-900/10 dark:border-white/10 shadow-xl bg-white dark:bg-gray-900 p-6">
+        <div
+            class="rounded-xl border border-gray-900/10 dark:border-white/10 shadow-xl bg-white dark:bg-gray-900 p-4 sm:p-6">
 
             <form id="privacyForm" class="text-gray-900 dark:text-white space-y-5">
                 @csrf

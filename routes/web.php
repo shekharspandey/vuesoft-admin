@@ -52,4 +52,5 @@ Route::middleware(AdminAuth::class)->group(function () {
     Route::get('/terms', [SiteController::class, 'terms'])->name('terms');
     Route::get('/privacy-policy', [SiteController::class, 'privacyPolicy'])->name('privacyPolicy');
     Route::post('/save-privacy-policy', [SiteController::class, 'savePrivacyPolicy'])->name('save.privacy.policy');
+    Route::post('/save-terms', [SiteController::class, 'saveTerms'])->name('save.terms');
 });

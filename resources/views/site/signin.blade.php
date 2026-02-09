@@ -47,15 +47,16 @@
 </head>
 
 <body>
-    <div class="relative p-6 bg-white z-1 dark:bg-gray-900 sm:p-0 bg-cover bg-no-repeat">
+    <div class="relative px-4 py-8 sm:px-6 bg-white z-1 dark:bg-gray-900 sm:p-0 bg-cover bg-no-repeat">
         <div
-            class="relative flex flex-col justify-center items-center w-full h-screen dark:bg-gray-900 sm:p-0 lg:flex-row">
+            class="relative flex flex-col justify-center items-center w-full min-h-screen dark:bg-gray-900 sm:p-0 lg:flex-row">
             <!-- Form Section -->
             <div
-                class="flex flex-col w-full lg:max-w-lg bg-white dark:bg-gray-900 border border-gray-200 shadow-xl rounded-3xl dark:border-gray-700">
-                <div class="flex flex-col justify-center w-full max-w-md min-h-[600px] mx-auto">
+                class="flex flex-col w-full sm:max-w-md md:max-w-lg lg:max-w-lg xl:max-w-xl bg-white dark:bg-gray-900 border border-gray-200 shadow-xl rounded-3xl dark:border-gray-700">
+                <div
+                    class="flex flex-col justify-center w-full max-w-md min-h-[520px] sm:min-h-[560px] lg:min-h-[600px] px-4 sm:px-8 mx-auto">
 
-                    <h1 class="mb-6 text-center font-bold text-primary text-sm sm:text-3xl">
+                    <h1 class="mb-4 sm:mb-6 text-center font-bold text-primary text-xl sm:text-3xl">
                         VueSoft Admin
                     </h1>
 
@@ -77,7 +78,7 @@
                     <form method="POST" action="{{ route('signin') }}" autocomplete="off">
                         @csrf
 
-                        <div class="space-y-5">
+                        <div class="space-y-3">
                             <!-- Email -->
                             <div>
                                 <label class="mb-1.5 block text-sm font-medium text-gray-700 dark:text-gray-400">
@@ -89,9 +90,14 @@
 
                             <!-- Password -->
                             <div class="relative">
-                                <input type="password" id="passwordInput" name="password" required
-                                    placeholder="Enter your password"
-                                    class="auth-input dark:bg-dark-900 shadow-theme-xs focus:border-blue-300 focus:ring-primary/10 dark:focus:border-blue-800 h-11 w-full rounded-lg border border-gray-300 bg-transparent px-4 pr-11 py-2.5 text-sm text-gray-800 placeholder:text-gray-400 focus:ring-3 focus:outline-hidden dark:border-gray-700 dark:bg-gray-900 dark:text-white/90 dark:placeholder:text-white/30" />
+                                <div>
+                                    <label class="mb-1.5 block text-sm font-medium text-gray-700 dark:text-gray-400">
+                                        Password<span class="text-red-500">*</span>
+                                    </label>
+                                    <input type="password" id="passwordInput" name="password" required
+                                        placeholder="Enter your password"
+                                        class="auth-input dark:bg-dark-900 shadow-theme-xs focus:border-blue-300 focus:ring-primary/10 dark:focus:border-blue-800 h-11 w-full rounded-lg border border-gray-300 bg-transparent px-4 pr-11 py-2.5 text-sm text-gray-800 placeholder:text-gray-400 focus:ring-3 focus:outline-hidden dark:border-gray-700 dark:bg-gray-900 dark:text-white/90 dark:placeholder:text-white/30" />
+                                </div>
 
                                 <!-- Eye button -->
                                 <button type="button" id="togglePassword"
@@ -103,14 +109,14 @@
 
                             <!-- Remember / Forgot -->
                             <div class="flex items-center justify-between">
-                                <label class="flex items-center text-sm text-gray-700 dark:text-gray-400">
+                                <label class="flex items-center text-xs sm:text-sm text-gray-700 dark:text-gray-400">
                                     <input type="checkbox" name="remember"
                                         class="mr-2 accent-primary focus:ring-primary">
                                     Keep me logged in
                                 </label>
 
                                 <a href="{{ route('forgotPassword') }}"
-                                    class="text-sm text-primary hover:text-secondary">
+                                    class="text-xs sm:text-sm text-primary hover:text-secondary">
                                     Forgot password?
                                 </a>
                             </div>
@@ -123,7 +129,7 @@
                         </div>
                     </form>
 
-                    <p class="mt-5 text-sm text-center text-gray-700 dark:text-gray-400 sm:text-start">
+                    <p class="mt-5 text-xs sm:text-sm text-center sm:text-left text-gray-700 dark:text-gray-400">
                         Don't have an account?
                         <a href="{{ route('register') }}" class="text-primary hover:text-secondary">
                             Sign Up

@@ -5,16 +5,20 @@
         use Carbon\Carbon;
     @endphp
     <div id="appContent"
-        class="transition-all duration-300 ease-in-out ml-[290px] pt-[96px] px-6 pb-10 bg-gray-50 dark:bg-gray-900 min-h-screen">
+        class="transition-all duration-300 ease-in-out
+           ml-0 lg:ml-[290px] sidebar-collapsed:ml-[80px]
+           pt-[72px] sm:pt-[88px] lg:pt-[96px]
+           px-4 sm:px-6 pb-6 sm:pb-10
+           bg-gray-50 dark:bg-gray-900 min-h-screen">
 
         <!-- Header -->
-        <div class="mb-6">
+        <div class="mb-4 sm:mb-6">
             <x-bread-crumb title="My Profile" :breadcrumbs="[['label' => 'Home', 'url' => route('dashboard')], ['label' => 'Profile']]" />
         </div>
 
         <!-- PROFILE HERO -->
         <div
-            class="relative rounded-2xl bg-white dark:bg-gray-800 text-gray-900 dark:text-white shadow p-6 mb-8 overflow-hidden">
+            class="relative rounded-2xl bg-white dark:bg-gray-800 text-gray-900 dark:text-white shadow p-4 sm:p-6 mb-6 sm:mb-8 overflow-hidden">
 
             <!-- Gradient bg -->
             <div class="absolute inset-0 bg-gradient-to-r from-primary/5 via-transparent to-purple-500/5"></div>
